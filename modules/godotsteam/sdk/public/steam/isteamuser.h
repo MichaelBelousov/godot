@@ -12,9 +12,7 @@
 
 #include "steam_api_common.h"
 
-//=============================================================================
-//====== Copied from Open SteamWorks
-
+//======= begin steamworks mingw patch
 #if defined(_WIN32) && defined(__GNUC__) && !defined(_S4N_)
 	#define STEAMWORKS_STRUCT_RETURN_0(returnType, functionName)	\
 		virtual void functionName( returnType& ret ) = 0;			\
@@ -24,40 +22,10 @@
 			this->functionName(ret);								\
 			return ret;												\
 		}
-	#define STEAMWORKS_STRUCT_RETURN_1(returnType, functionName, arg1Type, arg1Name)	\
-		virtual void functionName( returnType& ret, arg1Type arg1Name ) = 0;			\
-		inline returnType functionName( arg1Type arg1Name )								\
-		{																				\
-			returnType ret;																\
-			this->functionName(ret, arg1Name);											\
-			return ret;																	\
-		}
-	#define STEAMWORKS_STRUCT_RETURN_2(returnType, functionName, arg1Type, arg1Name, arg2Type, arg2Name)	\
-		virtual void functionName( returnType& ret, arg1Type arg1Name, arg2Type arg2Name ) = 0;				\
-		inline returnType functionName( arg1Type arg1Name, arg2Type arg2Name )								\
-		{																									\
-			returnType ret;																					\
-			this->functionName(ret, arg1Name, arg2Name);													\
-			return ret;																						\
-		}
-	#define STEAMWORKS_STRUCT_RETURN_3(returnType, functionName, arg1Type, arg1Name, arg2Type, arg2Name, arg3Type, arg3Name)	\
-		virtual void functionName( returnType& ret, arg1Type arg1Name, arg2Type arg2Name, arg3Type arg3Name ) = 0;				\
-		inline returnType functionName( arg1Type arg1Name, arg2Type arg2Name, arg3Type arg3Name )								\
-		{																														\
-			returnType ret;																										\
-			this->functionName(ret, arg1Name, arg2Name, arg3Name);																\
-			return ret;																											\
-		}
 #else
 	#define STEAMWORKS_STRUCT_RETURN_0(returnType, functionName) virtual returnType functionName() = 0;
-	#define STEAMWORKS_STRUCT_RETURN_1(returnType, functionName, arg1Type, arg1Name) virtual returnType functionName( arg1Type arg1Name ) = 0;
-	#define STEAMWORKS_STRUCT_RETURN_2(returnType, functionName, arg1Type, arg1Name, arg2Type, arg2Name) virtual returnType functionName( arg1Type arg1Name, arg2Type arg2Name ) = 0;
-	#define STEAMWORKS_STRUCT_RETURN_3(returnType, functionName, arg1Type, arg1Name, arg2Type, arg2Name, arg3Type, arg3Name) virtual returnType functionName( arg1Type arg1Name, arg2Type arg2Name, arg3Type arg3Name ) = 0;
 #endif
-
-//====== END Copied from Open SteamWorks
-//=============================================================================
-
+//======= end steamworks mingw patch
 
 //-----------------------------------------------------------------------------
 // Purpose: Functions for accessing and manipulating a steam account
@@ -77,8 +45,13 @@ public:
 
 	// returns the CSteamID of the account currently logged into the Steam client
 	// a CSteamID is a unique identifier for an account, and used to differentiate users in all parts of the Steamworks API
-	STEAMWORKS_STRUCT_RETURN_0(CSteamID, GetSteamID)
-	//virtual CSteamID GetSteamID() = 0;
+    
+//======= begin steamworks mingw patch
+STEAMWORKS_STRUCT_RETURN_0(CSteamID, GetSteamID)
+//======= original
+//virtual CSteamID GetSteamID() = 0;
+//======= end steamworks mingw patch
+
 
 	// Multiplayer Authentication functions
 	
