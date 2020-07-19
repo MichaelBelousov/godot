@@ -1,0 +1,3 @@
+[submodule "modules/ECMAScript"]
+	path = modules/ECMAScript
+	url = https://github.com/MichaelBelousov/ECMAScript
