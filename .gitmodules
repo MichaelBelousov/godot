@@ -1,3 +1,6 @@
 [submodule "modules/ECMAScript"]
 	path = modules/ECMAScript
 	url = https://github.com/MichaelBelousov/ECMAScript
+[submodule "modules/godot_voronoi"]
+	path = modules/godot_voronoi
+	url = https://github.com/rakai93/godot_voronoi.git
